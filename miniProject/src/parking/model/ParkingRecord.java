@@ -47,8 +47,6 @@ public class ParkingRecord {
 		return fee;
 	}
 
-
-
 	public void setFee(int fee) {
 		this.fee = fee;
 	}

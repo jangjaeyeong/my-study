@@ -4,17 +4,24 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class FeeCalculator {
-	private int baseFee;
+	private int baseFee = 3000;
 	private int unitTime;
 	private int unitFee;
 	
+	public FeeCalculator() {
+		
+	}
 	public int calculatorFee(LocalDateTime enterTime, LocalDateTime exitTime) {
-		int parkingTime = (int)Duration.between(enterTime, exitTime).toMinutes();
-		if(parkingTime <= 60) {
-			return 3000;
+		unitTime = (int)Duration.between(enterTime, exitTime).toMinutes();
+		if(unitTime >= 60) {
+			unitFee = (unitTime - 60) / 30;
+			return baseFee + (unitFee*500);
+			
+		}else if(unitTime > 5){
+			return baseFee;
+			
 		}else {
-			int a = (parkingTime - 60) / 30;
-			return 3000 + (a*500);
+			return 0;
 		}
 	}
 }
