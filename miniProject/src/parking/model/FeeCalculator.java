@@ -13,6 +13,7 @@ public class FeeCalculator {
 	}
 	public int calculatorFee(LocalDateTime enterTime, LocalDateTime exitTime) {
 		unitTime = (int)Duration.between(enterTime, exitTime).toMinutes();
+		System.out.println(unitTime);
 		if(unitTime >= 60) {
 			unitFee = (unitTime - 60) / 30;
 			return baseFee + (unitFee*500);

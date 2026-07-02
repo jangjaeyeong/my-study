@@ -60,17 +60,19 @@ public class ParkingController {
 		Member isMember = findMember(carNumber);
 		if(isMember == null) {
 			price =  feeCalculator.calculatorFee(p.getEnterTime(), p.getExitTime());
+			return "(방문차량) 조심히 가세요. 요금은 " + price + "원 입니다.";
 		}else {
 			if(isMember.getExpireDate().isAfter(LocalDate.now())) {
 				price = 0;
+				return "(등록차량) 조심히 가세요. 요금은 " + price + "원 입니다.";
 			}else {
 				members.remove(isMember);
-				price =  feeCalculator.calculatorFee(p.getEnterTime().plusHours(2), p.getExitTime());
+				price =  feeCalculator.calculatorFee(p.getEnterTime(), p.getExitTime());
+				return "(등록차량) 조심히 가세요. 요금은 " + price + "원 입니다.";
 			}
 				
 		}
 		
-		return "조심히 가세요. 요금은 " + price + "원 입니다.";
 	}
 	//회원 등록
 	public String insertMember(String carNumber, String phoneNumber, String name) {
@@ -93,9 +95,10 @@ public class ParkingController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh시 mm분");
 		ArrayList<String> printList = new ArrayList<>();
 		for(ParkingRecord p : currentParking) {
-			printList.add("차량 번호: " + p.getVerhicle().getCarNumber()
-					+ ", 입차 시간: " + p.getEnterTime().format(formatter));
+			printList.add(" 차량 번호: " + p.getVerhicle().getCarNumber()
+					+ " 입차 시간: " + p.getEnterTime().format(formatter));
 		}
+		printList.add(0, "현재 입차 수: " + currentParking.size());
 		return printList;
 	}
 	
@@ -105,16 +108,17 @@ public class ParkingController {
 		ArrayList<String> printList = new ArrayList<>();
 		for(ParkingRecord p : history) {
 			printList.add("차량 번호: " + p.getVerhicle().getCarNumber()
-					+ ", 입차 시간: " + p.getEnterTime().format(formatter) + ", 출차 시간: " + p.getExitTime().format(formatter));
+					+ " 입차 시간: " + p.getEnterTime().format(formatter) + " 출차 시간: " + p.getExitTime().format(formatter));
 		}
 		return printList;
 	}
 	public ArrayList<String> printAllMember() {
 		ArrayList<String>printMembers = new ArrayList<>();
 		for(Member m : members) {
-			printMembers.add("이름: " + m.getName()+ " 차량 번호: " + m.getVehicle().getCarNumber()
+			printMembers.add(" 이름: " + m.getName()+ " 차량 번호: " + m.getVehicle().getCarNumber()
 					+" 전화번호: " + m.getPhoneNumber() + " 만료일: " + m.getExpireDate());
 		}
+		printMembers.add(0, "월 회원 수: " + memberCount);
 		return printMembers;
 	}
 	
