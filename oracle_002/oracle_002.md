@@ -1,13 +1,17 @@
 1. 데이터베이스 언어(SQL) 분류
+   
   DQL
-    DQL이란 Data Query Language의 약자로 데이터베이스 내  원하는 내용을 검색하거나 조회할  때 사용합니다
+  
+      DQL이란 Data Query Language의 약자로 데이터베이스 내  원하는 내용을 검색하거나 조회할  때 사용합니다
       ex) SELECT
    
   DML
+  
     DML은 Data Manpulation Language의 약자로 데이터베이스에 데이터를 추가, 삭제, 수정 할 때 사용하는 언어입니다.
       ex) insert into, update, delete
    
   DDL
+  
     Data Definition Language 의 약자로 데이터베이스의 테이블이나 스키마 등을 만들거나 수정, 삭제 할 때 사용하는 언어입니다.
       ex) create, alter, drop, truncate
 
